@@ -31,6 +31,7 @@ canvas{
     width:100%;
     height:100%;
     z-index:0;
+    pointer-events:none;
 }
 
 /* Ambient Glow */
@@ -180,6 +181,13 @@ button{
     border-radius:30px;
     cursor:pointer;
 }
+@keyframes fall{
+    to{
+        transform:translateY(110vh) rotate(360deg);
+        opacity:0;
+    }
+}
+
 </style>
 </head>
 <body>
@@ -263,6 +271,31 @@ button{
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
     <script>
+
+        // SECRET PAGE
+    function openSecret(){
+        document.getElementById("secretPage").style.display = "flex";
+    }
+
+    function closeSecret(){
+        document.getElementById("secretPage").style.display = "none";
+    }
+
+    function checkPassword(){
+        const pass = document.getElementById("password").value;
+
+        if(pass === "05112023"){
+            document.getElementById("secretMessage").innerHTML =
+            "I LLLLOOOOOVVVVVEEEE YYYOOOUUUUUU FFFOOORRREEEVVEERRRMMMOORREEEE SAAAAYYYAANNNGGGKUUUUUU 💍❤️";
+
+            // EFFECT TAMBAHAN 🔥
+            createHearts();
+        }else{
+            document.getElementById("secretMessage").innerHTML =
+            "Tanggalnya salah sayang 😝";
+        }
+    }
+
     // COUNT DAYS
     const startDate = new Date("2023-11-05");
     const diff = new Date() - startDate;
@@ -336,7 +369,31 @@ button{
         renderer.render(scene,camera);
     }
     animate();
+
+    function createHearts(){
+        for(let i=0;i<40;i++){
+            let heart = document.createElement("div");
+            heart.innerHTML="💖";
+            heart.style.position="fixed";
+            heart.style.left=Math.random()*100+"%";
+            heart.style.top="-10px";
+            heart.style.fontSize=(20+Math.random()*30)+"px";
+            heart.style.animation="fall 4s linear forwards";
+            document.body.appendChild(heart);
+
+            setTimeout(()=>heart.remove(),4000);
+        }
+    }
     </script>
+
+    <!-- SECRET PAGE -->
+    <div id="secretPage">
+        <h1 style="font-size:40px;margin-bottom:20px;">Masukkan Tanggal Jadian 💖</h1>
+        <input type="password" id="password" placeholder="DDMMYYYY">
+        <button onclick="checkPassword()">Masuk</button>
+        <p id="secretMessage" style="margin-top:20px;"></p>
+        <button onclick="closeSecret()" style="margin-top:20px;">Tutup</button>
+    </div>
 
 </body>
 </html>
