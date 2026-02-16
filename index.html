@@ -188,19 +188,26 @@ button{
     }
 }
 
+#secretPage{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.95);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    z-index:9999; /* Naikin ini */
+}
+
+
 </style>
 </head>
 <body>
 
     <!-- MUSIC -->
-    <iframe
-    id="ytMusic"
-    width="0"
-    height="0"
-    src="https://www.youtube.com/embed/DJNZzChQmSw?autoplay=1&mute=1&loop=1&playlist=DJNZzChQmSw&controls=0&enablejsapi=1"
-    frameborder="0"
-    allow="autoplay">
-    </iframe>
+    <audio id="bgMusic" autoplay loop>
+        <source src="selalu-bahagia.mp3" type="audio/mpeg">
+    </audio>
 
     <!-- INTRO -->
     <div id="intro">
@@ -211,18 +218,18 @@ button{
     <!-- CONTENT -->
     <section>
     <div class="glass">
-    <h1>Untuk Lovenia ❤️</h1>
+    <h1>Untuk Lovenia Monalisa Debora Tulong ❤️</h1>
     <p id="days"></p>
     </div>
     </section>
 
     <section>
     <div class="glass">
-    <h1>Kata Romantis 💌</h1>
     <p>
     Kamu adalah rumahku.<br>
     Tempat aku kembali.<br>
     Tempat aku tenang.<br>
+    Tempat aku Beristirahat.<br>
     Dan tempat aku ingin menetap selamanya.
     </p>
     </div>
@@ -232,10 +239,10 @@ button{
     <div class="glass">
     <h1>Harapan 💞</h1>
     <p>
-    Semoga kita terus bertumbuh.<br>
-    Saling menguatkan.<br>
-    Saling memaafkan.<br>
-    Sampai tua bersama.
+        Semoga kita terus bertumbuh.<br>
+        Saling menguatkan.<br>
+        Saling memaafkan.<br>
+        Dan dapat mewujudkan semua rencana kita.
     </p>
     </div>
     </section>
@@ -244,13 +251,23 @@ button{
         <div class="glass">
             <h1>Maaf 🤍</h1>
             <p>
-            Maaf jika aku pernah menyakitimu.<br>
+            Maaf aku pernah bikin sayang sakit.<br>
+            Maaf aku kadang buat sayang kesel, marah, badmood, Bete.<br>
+            Maaf aku sering telat Sayangg.<br>
             Aku tidak sempurna, tapi cintaku selalu tulus.<br>
             Aku belajar setiap hari menjadi lebih baik untukmu.
             </p>
             <button onclick="openSecret()">Halaman Rahasia 🔒</button>
         </div>
     </section>
+
+    <div id="secretPage">
+        <h1 style="font-size:40px;margin-bottom:20px;">Masukkan Tanggal Jadian 💖</h1>
+        <input type="password" id="password" placeholder="DDMMYYYY">
+        <button onclick="checkPassword()">Masuk</button>
+        <p id="secretMessage" style="margin-top:20px;"></p>
+        <button onclick="closeSecret()" style="margin-top:20px;">Tutup</button>
+    </div>
 
     <section>
     <div class="glass">
@@ -274,7 +291,9 @@ button{
 
         // SECRET PAGE
     function openSecret(){
-        document.getElementById("secretPage").style.display = "flex";
+        const page = document.getElementById("secretPage");
+        page.style.display = "flex";
+        page.style.opacity = "1";
     }
 
     function closeSecret(){
@@ -301,24 +320,35 @@ button{
     const diff = new Date() - startDate;
     const days = Math.floor(diff/(1000*60*60*24));
     document.getElementById("days").innerHTML =
-    "Sudah "+days+" hari kita bersama ❤️";
+    "terhitung sejak tanggal jadian Sudah "+days+" hari kita bersama ya ❤️";
 
     // INTRO
     window.addEventListener("load",()=>{
         setTimeout(()=>{
-            document.getElementById("intro").style.opacity="0";
+            const intro = document.getElementById("intro");
+            intro.style.opacity="0";
+            intro.style.pointerEvents="none";
             setTimeout(()=>{
-                document.getElementById("intro").style.display="none";
-            },2000);
-        },4000);
+                intro.style.display="none";
+            },1500);
+        },3000);
+    });
 
-        // Unmute music
-        setTimeout(()=>{
-            document.getElementById("ytMusic").contentWindow.postMessage(
-                '{"event":"command","func":"unMute","args":""}',
-                '*'
-            );
-        },4500);
+    const music = document.getElementById("bgMusic");
+    document.addEventListener("click", () => {
+        music.play();
+    }, { once: true });
+
+    window.addEventListener("load", () => {
+        music.volume = 0;
+
+        let fade = setInterval(() => {
+            if (music.volume < 0.8) {
+                music.volume += 0.02;
+            } else {
+                clearInterval(fade);
+            }
+        }, 200);
     });
 
     // FADE SCROLL
@@ -385,15 +415,6 @@ button{
         }
     }
     </script>
-
-    <!-- SECRET PAGE -->
-    <div id="secretPage">
-        <h1 style="font-size:40px;margin-bottom:20px;">Masukkan Tanggal Jadian 💖</h1>
-        <input type="password" id="password" placeholder="DDMMYYYY">
-        <button onclick="checkPassword()">Masuk</button>
-        <p id="secretMessage" style="margin-top:20px;"></p>
-        <button onclick="closeSecret()" style="margin-top:20px;">Tutup</button>
-    </div>
 
 </body>
 </html>
