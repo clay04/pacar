@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Untuk Lovenia ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;800&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+html{ scroll-behavior:smooth; }
+
+body{
+    background:black;
+    color:white;
+    overflow-x:hidden;
+}
+
+/* ========== 3D CANVAS ========== */
+canvas{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index:0;
+}
+
+/* Ambient Glow */
+body::before{
+    content:"";
+    position:fixed;
+    top:50%;
+    left:50%;
+    width:1000px;
+    height:1000px;
+    background:radial-gradient(circle, rgba(255,105,240,0.25), transparent 70%);
+    transform:translate(-50%,-50%);
+    z-index:1;
+    animation:pulse 6s infinite alternate;
+}
+@keyframes pulse{
+    from{transform:translate(-50%,-50%) scale(1);}
+    to{transform:translate(-50%,-50%) scale(1.3);}
+}
+
+/* ========== SECTION ========== */
+section{
+    position:relative;
+    z-index:2;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:40px;
+    text-align:center;
+}
+
+.glass{
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(20px);
+    padding:60px;
+    border-radius:30px;
+    max-width:900px;
+    width:100%;
+    box-shadow:0 40px 100px rgba(0,0,0,0.7);
+    transform:translateY(120px);
+    opacity:0;
+    transition:1.5s cubic-bezier(0.22,1,0.36,1);
+}
+
+.glass.show{
+    transform:translateY(0);
+    opacity:1;
+}
+
+h1{
+    font-weight:800;
+    margin-bottom:20px;
+}
+
+p{
+    line-height:1.8;
+    font-weight:300;
+}
+
+/* ========== GALLERY ========== */
+.gallery{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+    gap:25px;
+}
+.gallery img{
+    width:100%;
+    border-radius:20px;
+    transition:0.6s;
+    cursor:pointer;
+    transform-style:preserve-3d;
+}
+.gallery img:hover{
+    transform:rotateY(15deg) scale(1.1);
+}
+
+.modal{
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:black;
+    justify-content:center;
+    align-items:center;
+    z-index:10;
+}
+.modal img{
+    max-width:85%;
+    border-radius:20px;
+}
+
+/* ========== INTRO ========== */
+#intro{
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:black;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    z-index:999;
+    transition:2s;
+}
+
+#loveName{
+    font-size:80px;
+    color:#ff69f0;
+    text-shadow:
+        0 0 20px #ff69f0,
+        0 0 50px #ff1493,
+        0 0 120px #ff69f0,
+        0 0 200px #ff1493;
+    animation:zoom 3s ease forwards;
+}
+
+@keyframes zoom{
+    0%{transform:scale(0.3);opacity:0;}
+    100%{transform:scale(1.2);opacity:1;}
+}
+
+/* ========== SECRET ========== */
+#secretPage{
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:black;
+    display:none;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    z-index:1000;
+}
+input{
+    padding:15px;
+    border-radius:30px;
+    border:none;
+    margin:15px;
+    text-align:center;
+}
+button{
+    padding:12px 30px;
+    border:none;
+    border-radius:30px;
+    cursor:pointer;
+}
+</style>
+</head>
+<body>
+
+    <!-- MUSIC -->
+    <iframe
+    id="ytMusic"
+    width="0"
+    height="0"
+    src="https://www.youtube.com/embed/DJNZzChQmSw?autoplay=1&mute=1&loop=1&playlist=DJNZzChQmSw&controls=0&enablejsapi=1"
+    frameborder="0"
+    allow="autoplay">
+    </iframe>
+
+    <!-- INTRO -->
+    <div id="intro">
+    <h1 id="loveName">Lovenia</h1>
+    <p style="margin-top:20px;opacity:0.8;">05 November 2023</p>
+    </div>
+
+    <!-- CONTENT -->
+    <section>
+    <div class="glass">
+    <h1>Untuk Lovenia ❤️</h1>
+    <p id="days"></p>
+    </div>
+    </section>
+
+    <section>
+    <div class="glass">
+    <h1>Kata Romantis 💌</h1>
+    <p>
+    Kamu adalah rumahku.<br>
+    Tempat aku kembali.<br>
+    Tempat aku tenang.<br>
+    Dan tempat aku ingin menetap selamanya.
+    </p>
+    </div>
+    </section>
+
+    <section>
+    <div class="glass">
+    <h1>Harapan 💞</h1>
+    <p>
+    Semoga kita terus bertumbuh.<br>
+    Saling menguatkan.<br>
+    Saling memaafkan.<br>
+    Sampai tua bersama.
+    </p>
+    </div>
+    </section>
+
+    <section>
+        <div class="glass">
+            <h1>Maaf 🤍</h1>
+            <p>
+            Maaf jika aku pernah menyakitimu.<br>
+            Aku tidak sempurna, tapi cintaku selalu tulus.<br>
+            Aku belajar setiap hari menjadi lebih baik untukmu.
+            </p>
+            <button onclick="openSecret()">Halaman Rahasia 🔒</button>
+        </div>
+    </section>
+
+    <section>
+    <div class="glass">
+    <h1>Galeri Kenangan 📸</h1>
+    <div class="gallery">
+    <img src="foto1.jpg" onclick="openModal(this)">
+    <img src="foto2.jpg" onclick="openModal(this)">
+    <img src="foto3.jpeg" onclick="openModal(this)">
+    <img src="foto4.jpeg" onclick="openModal(this)">
+    </div>
+    </div>
+    </section>
+
+    <div class="modal" id="modal" onclick="closeModal()">
+    <img id="modalImg">
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <script>
+    // COUNT DAYS
+    const startDate = new Date("2023-11-05");
+    const diff = new Date() - startDate;
+    const days = Math.floor(diff/(1000*60*60*24));
+    document.getElementById("days").innerHTML =
+    "Sudah "+days+" hari kita bersama ❤️";
+
+    // INTRO
+    window.addEventListener("load",()=>{
+        setTimeout(()=>{
+            document.getElementById("intro").style.opacity="0";
+            setTimeout(()=>{
+                document.getElementById("intro").style.display="none";
+            },2000);
+        },4000);
+
+        // Unmute music
+        setTimeout(()=>{
+            document.getElementById("ytMusic").contentWindow.postMessage(
+                '{"event":"command","func":"unMute","args":""}',
+                '*'
+            );
+        },4500);
+    });
+
+    // FADE SCROLL
+    const observer = new IntersectionObserver(entries=>{
+        entries.forEach(entry=>{
+            if(entry.isIntersecting){
+                entry.target.classList.add("show");
+            }
+        });
+    },{threshold:0.3});
+    document.querySelectorAll(".glass").forEach(el=>observer.observe(el));
+
+    // MODAL
+    function openModal(img){
+        document.getElementById("modal").style.display="flex";
+        document.getElementById("modalImg").src=img.src;
+    }
+    function closeModal(){
+        document.getElementById("modal").style.display="none";
+    }
+
+    // THREE GALAXY
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,0.1,2000);
+    const renderer = new THREE.WebGLRenderer({alpha:true});
+    renderer.setSize(window.innerWidth,window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    const geometry = new THREE.BufferGeometry();
+    const vertices = [];
+    for(let i=0;i<7000;i++){
+        vertices.push(
+            (Math.random()-0.5)*2000,
+            (Math.random()-0.5)*2000,
+            (Math.random()-0.5)*2000
+        );
+    }
+    geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices,3));
+    const material = new THREE.PointsMaterial({color:0xff69f0,size:2});
+    const stars = new THREE.Points(geometry,material);
+    scene.add(stars);
+    camera.position.z=800;
+
+    function animate(){
+        requestAnimationFrame(animate);
+        stars.rotation.y+=0.001;
+        stars.rotation.x+=0.0005;
+        renderer.render(scene,camera);
+    }
+    animate();
+    </script>
+
+</body>
+</html>
